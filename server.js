@@ -111,6 +111,15 @@ app.get('/monthreco', (req, res) => {
     });
 })
 
+//개봉 예정 영화 페이지 데이터 전송 31~40번
+app.get('/yetpos', (req, res) => {
+    conn.query('select * from movie where mov_no limit 32, 10',
+    (err, result, fields) => {
+        console.log(result);
+        res.send(result);
+    })
+})
+
 //장르 영화 페이지 데이터 전송
 app.get('/genrePage', (req, res) => {
     conn.query('select * from movie', 
