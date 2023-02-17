@@ -218,7 +218,8 @@ app.get('/textFree/:no', (req, res) => {
 
 //리뷰데이터 요청
 app.get("/review", async (req, res) => {
-    conn.query(`select * from review where r_no limit 0,15`, (err, result, fields) => {
+    conn.query(`select * from review where r_no limit 0,15`, 
+    (err, result, fields) => {
         if(result){
             console.log(result);
             res.send(result);
@@ -226,6 +227,21 @@ app.get("/review", async (req, res) => {
     })
 })
 
+// 영화 상세보기 페이지 데이터 전송
+app.get(`/reviewdetail/:post`, (req, res) => {
+    const {post} = req.params;
+    conn.query(`select * from movie where mov_img like '%${post}%'`, 
+    (err, result, fields) => {
+        if(result) {
+            console.log(result)
+            res.send(result);
+        }
+        console.log(err)
+    });
+})
+
+
+/* ./detailreview/${list.r_img} */
 //공지게시글 등록
 app.post("/notices", async (req, res) => {
     const {n_title, n_desc,n_nickname, n_date} = req.body;
