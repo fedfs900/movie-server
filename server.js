@@ -77,6 +77,18 @@ app.get('/detail/:no', (req, res) => {
         console.log(err)
     });
 })
+// 영화 상세보기 페이지 리뷰 데이터 전송
+app.get('/detailreview/:no', (req, res) => {
+    const {no} = req.params;
+    conn.query(`select * from review where r_img = (select mov_img from movie where mov_no=${no})`, 
+    (err, result, fields) => {
+        if(result) {
+            console.log(result)
+             res.send(result);
+        }
+        console.log(err)
+    });
+})
 
 // 최신영화 - 개봉예정 페이지 데이터 전송
 app.get('/yetpos', (req, res) => {
